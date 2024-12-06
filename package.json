@@ -1,0 +1,11 @@
+{
+  "name": "web-nerp",
+  "version": "1.0.0",
+  "description": "Web stack using Node Express React and PostrgreSQL",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Minh Dao",
+  "license": "ISC"
+}
