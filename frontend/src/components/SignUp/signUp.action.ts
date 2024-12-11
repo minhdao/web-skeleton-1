@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { BACKEND_SERVER } from '../../api/server';
 
 export const useSignUpAction = () => {
   const [loading, setLoading] = useState(false);
@@ -23,15 +24,19 @@ export const useSignUpAction = () => {
       setSuccessMessage(null); // Reset success state
 
       // API call to sign up the user
-      const response = await axios.post('/api/signup', {
-        username,
-        password,
+      const response = await axios.post(`${BACKEND_SERVER.url.signUp}`, {
+        email: username,
+        password: password,
+        rePassword: confirmPassword,
       });
+
+      console.log(response.data);
 
       if (response.data) {
         setSuccessMessage('Sign up successful! Please log in.');
       }
     } catch (error: any) {
+      console.log(error.message);
       setError(
         error.response?.data?.message || 'An error occurred. Please try again.'
       );
