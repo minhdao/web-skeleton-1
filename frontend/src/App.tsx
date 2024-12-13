@@ -1,6 +1,6 @@
 import './App.css';
 import { Header } from './components/Header';
-import { SignUpForm } from './components/SignUp/SignUpForm';
+import { SignUpForm } from './components/sign-up/SignUpForm';
 
 function App() {
   return (
