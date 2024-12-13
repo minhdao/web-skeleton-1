@@ -21,7 +21,7 @@ export const handleSignUpUser = async (req: Request, res: Response) => {
     if (!inputsCheckResult.success) {
       res.status(400).send({
         message: 'Invalid inputs',
-        errors: inputsCheckResult.error.format(),
+        errors: inputsCheckResult.error.formErrors,
       });
 
       return;
@@ -30,7 +30,8 @@ export const handleSignUpUser = async (req: Request, res: Response) => {
     const result = await signUpUser({ email, password, rePassword });
 
     if (!result.success) {
-      res.status(400).send({ message: result.message });
+      console.log(result.errors);
+      res.status(400).send({ message: result.message, errors: result.errors });
 
       return;
     }

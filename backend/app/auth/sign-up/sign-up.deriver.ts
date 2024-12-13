@@ -1,7 +1,19 @@
-export type SignUpDeriverResult = {
-  success: boolean;
-  message: string;
+export type SignUpUserFieldErrors = {
+  email?: string;
+  password?: string;
+  rePassword?: string;
 };
+
+export type SignUpDeriverResult =
+  | {
+      success: false;
+      message: string;
+      errors: SignUpUserFieldErrors;
+    }
+  | {
+      success: true;
+      message: string;
+    };
 
 export const deriveSignUpUser = ({
   existingUser,
@@ -18,6 +30,9 @@ export const deriveSignUpUser = ({
     return {
       success: false,
       message: 'User with provided email already existed',
+      errors: {
+        email: 'User with provided email already existed',
+      },
     };
   }
 
@@ -25,13 +40,22 @@ export const deriveSignUpUser = ({
     return {
       success: false,
       message: 'Missing required info to sign up a user',
+      errors: {
+        email: !email ? 'Required' : '',
+        password: !password ? 'Required' : '',
+        rePassword: !rePassword ? 'Required' : '',
+      },
     };
   }
 
   if (password !== rePassword) {
     return {
       success: false,
-      message: 'Passwords does not match',
+      message: 'Password does not match',
+      errors: {
+        password: 'Password does not match',
+        rePassword: 'Password does not match',
+      },
     };
   }
 

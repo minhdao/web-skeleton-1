@@ -1,4 +1,4 @@
-import { deriveSignUpUser } from './sign-up.deriver';
+import { deriveSignUpUser, SignUpUserFieldErrors } from './sign-up.deriver';
 
 type SignUpControllerResult =
   | {
@@ -9,6 +9,7 @@ type SignUpControllerResult =
   | {
       success: false;
       message: string;
+      errors: SignUpUserFieldErrors;
     };
 
 export const signUpUser = async ({
@@ -20,7 +21,7 @@ export const signUpUser = async ({
   password: string;
   rePassword: string;
 }): Promise<SignUpControllerResult> => {
-  const existingUser = undefined; // async get user from a database
+  const existingUser = { email: 'minh@example.com' }; // async get user from a database
 
   const result = deriveSignUpUser({
     existingUser,
@@ -33,6 +34,7 @@ export const signUpUser = async ({
     return {
       success: false,
       message: result.message,
+      errors: result.errors,
     };
   }
 
