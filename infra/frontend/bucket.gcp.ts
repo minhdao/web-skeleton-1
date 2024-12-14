@@ -1,7 +1,6 @@
 import * as pulumi from '@pulumi/pulumi';
 import * as gcp from '@pulumi/gcp';
-import * as fs from 'fs';
-import { contentType, lookup } from 'mime-types';
+import { lookup } from 'mime-types';
 import { glob } from 'glob';
 import * as path from 'path';
 
