@@ -1,0 +1,16 @@
+{
+  "name": "nerp-skeleton-1",
+  "main": "index.ts",
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mime-types": "^2.1.4",
+    "@types/node": "^18",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@pulumi/gcp": "^8.0.0",
+    "@pulumi/pulumi": "^3.113.0",
+    "glob": "^11.0.0",
+    "mime-types": "^2.1.35"
+  }
+}

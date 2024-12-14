@@ -1,0 +1,2 @@
+config:
+  gcp:project: cloudrun-tutorial-441208
