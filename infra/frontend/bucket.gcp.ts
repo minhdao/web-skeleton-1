@@ -23,7 +23,7 @@ files.forEach((file) => {
     relativePath,
     {
       bucket: bucket.name,
-      name: pulumi.interpolate`${bucket.name}/${relativePath}`,
+      name: pulumi.interpolate`${relativePath}`,
       source: new pulumi.asset.FileAsset(file),
       contentType: lookup(relativePath) || undefined,
     },
