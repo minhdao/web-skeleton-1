@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), ''); // Third argument '' ensures all variables are loaded
 
   return {
-    base: env.VITE_BASE_URL,
+    base: env.BASE_URL,
     build: {
       outDir: 'dist',
     },
