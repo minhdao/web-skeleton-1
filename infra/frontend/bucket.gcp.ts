@@ -9,12 +9,20 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 // Create a GCP resource (Storage Bucket)
-const bucket = new gcp.storage.Bucket('nerp-1-frontend', {
+const bucket = new gcp.storage.Bucket('nerp-1-frontend-1', {
   location: 'ASIA-SOUTHEAST1',
   uniformBucketLevelAccess: true,
   website: {
     mainPageSuffix: 'index.html',
   },
+  cors: [
+    {
+      origins: [pulumi.interpolate`https://${process.env.APP_DOMAIN}`],
+      methods: ['GET', 'OPTIONS', 'POST', 'PUT'],
+      responseHeaders: ['*'],
+      maxAgeSeconds: 3600,
+    },
+  ],
 });
 
 // Use glob to get all files in the `dist` directory
@@ -38,7 +46,7 @@ files.forEach((file) => {
 });
 
 // Configure access to the bucket
-new gcp.storage.BucketIAMBinding('public-access', {
+new gcp.storage.BucketIAMBinding('nerp-frontend-public-access', {
   bucket: bucket.name,
   role: 'roles/storage.objectViewer',
   members: ['allUsers'], // Allows public read access
@@ -49,7 +57,7 @@ const backendBucket = new gcp.compute.BackendBucket(
   'nerp-1-react-backend-bucket',
   {
     bucketName: bucket.name,
-    enableCdn: false, // Optional: Enable Cloud CDN for caching
+    enableCdn: true, // Optional: Enable Cloud CDN for caching and allow bucket content to be served with HTTPS
   }
 );
 
@@ -80,6 +88,7 @@ const forwardingRule = new gcp.compute.GlobalForwardingRule(
     target: httpsProxy.id,
     portRange: '443',
     ipProtocol: 'TCP',
+    loadBalancingScheme: 'EXTERNAL',
   }
 );
 
