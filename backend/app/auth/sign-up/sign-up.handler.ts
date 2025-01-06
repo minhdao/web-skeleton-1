@@ -43,6 +43,8 @@ export const handleSignUpUser = async (req: Request, res: Response) => {
   } catch (err) {
     console.error(err);
 
+    // Consider sending error to custom centralized error handler using next(err)
+
     res.status(500).send({
       message: 'Something went wrong on our side. Please try again later.',
     });
