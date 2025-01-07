@@ -11,7 +11,7 @@ export const createUser = async ({
       id: user.id,
       username: user.username,
       password: user.password,
-      salt: user.salt,
+      salt: user.salt || '',
     });
 
     const createdUser = await client.hGetAll(user.id);

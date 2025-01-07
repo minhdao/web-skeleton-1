@@ -16,6 +16,10 @@ export type RedisRepo = {
   }) => Promise<Omit<User, 'password' | 'salt'> | undefined>;
 };
 
+export const initRedisRepo = async (): Promise<void> => {
+  await client.connect();
+};
+
 export const getRedisRepo = async (): Promise<RedisRepo> => {
   if (!client.isOpen) {
     await client.connect();
