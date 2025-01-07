@@ -1,6 +1,12 @@
 import express from 'express';
 import { handleSignUpUser } from './auth/sign-up/sign-up.handler';
 import cors from 'cors';
+import 'reflect-metadata';
+import * as dotenv from 'dotenv';
+import { initPgRepo } from '../db/repo/pg/pg.client';
+
+// Load .env variables
+dotenv.config();
 
 const app = express();
 const port = 8080;
@@ -16,6 +22,8 @@ app.get('/', (req, res) => {
 
 app.post('/sign-up', handleSignUpUser);
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await initPgRepo();
+
   console.log(`Server started on port ${port}`);
 });
